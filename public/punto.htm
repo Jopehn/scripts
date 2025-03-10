@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Punto</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" href="../css/my_styles.css">
+	<link rel="stylesheet" href="../css/my_bs.css">
+</head>
+<body>
+	<div class="contenedor">
+		<div class="jumbotron text-dark">
+			<h1 class="display-4">Punto</h1>
+			<p class="lead">Cálculo de la distancia</p>
+		</div>
+		<form method="post" action="" class="row g-3">
+			<div class="col-md-6">
+				<label for="x1" class="form-label">X1</label>
+				<input type="text" id="x1" class="form-control">
+			</div>
+			<div class="col-md-6">
+				<label for="y1" class="form-label">Y1</label>
+				<input type="text" id="y1" class="form-control">
+			</div>
+			<div class="col-md-6">
+				<label for="x2" class="form-label">X2</label>
+				<input type="text" id="x2" class="form-control">
+			</div>
+			<div class="col-md-6">
+				<label for="y2" class="form-label">Y2</label>
+				<input type="text" id="y2" class="form-control">
+			</div>
+			<div class="col-md-12">
+				<button type="submit" id="calc" class="btn btn-primary">Calcular</button>
+				<button type="reset" class="btn btn-light">Limpiar</button>
+			</div>
+		</form>
+		<div id="result"></div>
+		<p><a href="javascript:history.back()" class="btn btn-dark">Volver</a></p>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script type="module">
+		import Punto from '../js/punto.js';
+		const calc=document.getElementById('calc');
+		const result=document.getElementById('result');
+		calc.onclick=(ev)=>{
+			ev.preventDefault();
+			const X1=document.getElementById('x1');
+			let x1=parseFloat(X1.value);
+			const Y1=document.getElementById('y1');
+			let y1=parseFloat(Y1.value);
+			const X2=document.getElementById('x2');
+			let x2=parseFloat(X2.value);
+			const Y2=document.getElementById('y2');
+			let y2=parseFloat(Y2.value);
+			if (isNaN(x1) || isNaN(y1) || isNaN(x2)|| isNaN(y2)) {
+				alert('Campos vacíos');
+				result.innerText='';
+			}else{
+				let punto1=new Punto(x1, y1);
+				let punto2=new Punto(x2, y2);
+				result.innerText=`Distancia: ${punto1.dist(punto2)}`;
+			}
+		}
+	</script>
+</body>
+</html>

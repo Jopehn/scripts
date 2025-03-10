@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cuadrática</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" href="../css/my_styles.css">
+	<link rel="stylesheet" href="../css/my_bs.css">
+</head>
+<body>
+	<div class="contenedor">
+		<div class="jumbotron text-dark">
+			<h1 class="display-4">Cuadrática</h1>
+			<p class="lead">Cálculo de las raíces cuadradas</p>
+		</div>
+		<form method="post" action="" class="row row-cols-lg-auto g-3 align-items-center">
+			<div class="col-12">
+				<label for="a" class="visually-hidden">A</label>
+				<input type="text" id="a" placeholder="A" class="form-control">
+			</div>
+			<div class="col-12">
+				<label for="b" class="visually-hidden">B</label>
+				<input type="text" id="b" placeholder="B" class="form-control">
+			</div>
+			<div class="col-12">
+				<label for="c" class="visually-hidden">C</label>
+				<input type="text" id="c" placeholder="C" class="form-control">
+			</div>
+			<div class="col-12">
+				<button type="submit" id="calc" class="btn btn-primary">Calcular</button>
+				<button type="reset" class="btn btn-light">Limpiar</button>
+			</div>
+		</form>
+		<div id="result"></div>
+		<p><a href="javascript:history.back()" class="btn btn-dark">Volver</a></p>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script type="module">
+		import Quad from '../js/quad.js';
+		const calc=document.getElementById('calc');
+		const result=document.getElementById('result');
+		calc.onclick=(ev)=>{
+			ev.preventDefault();
+			const A=document.getElementById('a');
+			let a=parseFloat(A.value);
+			const B=document.getElementById('b');
+			let b=parseFloat(B.value);
+			const C=document.getElementById('c');
+			let c=parseFloat(C.value);
+			if (isNaN(a) || isNaN(b) || isNaN(c)) {
+				alert('Campos vacíos');
+				result.innerHTML='';
+			}else{
+				let quad=new Quad(a, b, c);
+				let dist=quad.dist();
+				if(quad.a==0){
+					alert('A no puede ser 0');
+					result.innerHTML='';
+				}else{
+					let x0=(-quad.b)/(2*quad.a);
+					let y0=quad.a*(x0**2)+quad.b*x0+quad.c;
+					if (dist>0) {
+						let x1=(-quad.b+Math.sqrt(dist))/(2*quad.a);
+						let x2=(-quad.b-Math.sqrt(dist))/(2*quad.a);
+						result.innerHTML=`<p>x1: ${x1}</p>
+						<p>x2: ${x2}</p>
+						<p>x0: ${x0}</p>
+						<p>y0: ${y0}</p>`;
+					}else if(dist==0){
+						let x=(-quad.b)/(2*quad.a);
+						result.innerHTML=`<p>X: ${x}</p>
+						<p>x0: ${x0}</p>
+						<p>y0: ${y0}</p>`;
+					}else{
+						alert('Raíces imaginarias');
+						result.innerHTML=`<p>X0: ${x0}</p>
+						<p>Y0: ${y0}</p>`;
+					}
+				}
+			}
+		}
+	</script>
+</body>
+</html>
