@@ -1,0 +1,73 @@
+.grilla{
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    margin-bottom: 20px;
+}
+.celda{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    border: 2px solid #fff;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.anillo{
+    width: 70px;
+    height: 70px;
+    border: 10px solid #008000;
+    border-radius: 50px;
+    box-sizing: border-box;
+}
+.anillo::before{
+    content: '';
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.cruz{
+    position: relative;
+    width: 70px;
+    height: 70px;
+}
+.cruz::before, .cruz::after{
+    content: '';
+    position: absolute;
+    background-color: #ff0000;
+    transform: rotate(45deg);
+}
+.cruz::before{
+    width: 100%;
+    height: 20%;
+    top: 40%;
+    left: 0;
+}
+.cruz::after{
+    height: 100%;
+    width: 20%;
+    top: 0;
+    left: 40%;
+}
+.mensaje, .entrada-nombres{
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+.boton-iniciar, .boton-reiniciar{
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+.oculto{
+    display: none;
+}
+.entrada-nombres input{
+    margin: 5px;
+    padding: 10px;
+    font-size: 1rem;
+}
